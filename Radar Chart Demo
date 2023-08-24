@@ -1,0 +1,25 @@
+%matplotlib inline
+import pandas as pd
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+df=pd.read_csv('/Users/sumedhajauhari/Downloads/Pokemon.csv')
+df.head()
+
+### We want to show the 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed' as 6 different axes on our radar chart, so just take them out and set as a np.array. Here we are using 385th Pokemon as an example to illustrate the chart.
+
+labels=np.array(['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
+stats=df.loc[385,labels].values
+stats
+
+angles=np.linspace(0, 2*np.pi, len(labels), endpoint=False)
+angles
+
+fig=plt.figure()
+ax = fig.add_subplot(111, polar=True)
+ax.plot(angles, stats, 'bo--',linewidth=0.8)
+ax.fill(angles, stats, alpha=0.4)
+ax.set_thetagrids(angles * 180/np.pi, labels)
+ax.set_title([df.loc[385,"Name"]])
+ax.grid(True)
+
