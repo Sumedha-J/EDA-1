@@ -1,1 +1,1 @@
-This project solves problems from  linkedin learning course- Python Statistics Essential Training (2018)
+This project is more on performing EDA based on datasets avaialble online.
