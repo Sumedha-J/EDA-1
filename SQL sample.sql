@@ -1,6 +1,4 @@
-
-
---------------Select within Select examples--------
+--------------Select within Select examples--------------------------------
 SELECT name FROM world
   WHERE continent='Europe' and gdp/population >
      (SELECT gdp/population FROM world
@@ -19,7 +17,7 @@ select name, concat(round((population / (select population from world where name
 from world
 where continent='Europe'
 
----------------Correlated sub query--------------
+---------------Correlated sub query--------------------------------------
 
 We can use the word ALL to allow >= or > or < or <=to act over a list. For example, you can find the largest country in the world, by population with this query:
 You can use the words ALL or ANY where the right side of the operator might have multiple values.
@@ -60,12 +58,12 @@ WHERE continent IN
  (SELECT continent FROM world WHERE name='Brazil'
                                  OR name='Mexico')
 
---subquery in FROM--
+--------------------------subquery in FROM------------------------
 SELECT a.employeeid, Allavgsalary FROM (select employeeid, salary, avg(salary) over () as Allavgsalary from world) a 
   order by a.employeeid
   
 
---subquery in WHERE--
+--------------------------subquery in WHERE--------------------------
 SELECT employeeid, salary FROM world where salary in (select max(salary) from world)
 
 
@@ -84,12 +82,12 @@ WHERE name = 'China'
  GROUP BY continent
 HAVING SUM(population)>500000000 -- having columns should be in SELECT statement 
 
-------------JOIN condition----------------------
+------------JOIN condition----------------------------------------------
 Often using join condition you get redundant records. Use DISTINCT to remove duplicate records
 
 
 
-------------CASE WHEN --------------------------
+------------CASE WHEN --------------------------------------------------
 List every match with the goals scored by each team. This will use "CASE WHEN".
 
 SELECT mdate,
@@ -198,7 +196,7 @@ WHERE (r1.stop = (SELECT id FROM stops WHERE name = 'Craiglockhart')) AND
       (r4.stop = (SELECT id FROM stops WHERE name = 'Lochend'))
 ORDER BY r1.num, s1.name, r4.num;
 
-------------union----------
+------------union----------------------------------
 
 select a,b from table1
 union
@@ -209,7 +207,7 @@ intersect
 select a,b from table2; -- it do not have duplicates
 
 
-------------rank------------
+------------rank------------------------------------
 select *,row_number() over (partition by colname order by salary) salaryrank from employee ; -- gets different rank for the rows having similar values
 
 select *, rank() over (partition by colname order by anycolname desc) salaryrank from employee order by colname,salaryrank ;-- using partition by
@@ -221,7 +219,7 @@ SELECT duration_seconds,
        SUM(duration_seconds) OVER (ORDER BY start_time) AS running_total
   FROM tutorial.dc_bikeshare_q1_2012; -- rolling sum similarly avg function works
 
--------------Rolling average-----------
+-------------Rolling average-----------------------------------
 SELECT
     sale_date,
     SUM(sales_amount) OVER (ORDER BY sale_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS rolling_avg
@@ -238,7 +236,7 @@ FROM
 GROUP BY
     salesperson_id;-- this code calculates the total sales for each salesperson and ranks them based on their total sales. The salesperson with the highest total sales gets a rank of 1, and the ranking continues based on descending sales amounts
 
-------------------------------------
+------------------------------------------------------------
 
 select substring(colname,1,charindex(',',colname)-1) as abc
 select parsename(replace(address,',','.'),3) from abc
